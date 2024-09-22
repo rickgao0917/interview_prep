@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+    <style>
+        /* Style for the body and overall layout */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #001f3f; /* Navy blue for primary text */
+        }
+
+        /* Style for the menu bar */
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #001f3f; /* Navy blue */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.menu li {
+            float: left;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: white; /* White text for the menu bar */
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover effect for links in the menu bar */
+        ul.menu li a:hover {
+            background-color: #FF6F61; /* Soft coral */
+            color: #000; /* Black text on hover */
+        }
+
+        ul.menu li a:focus {
+            background-color: #FF6F61;
+            color: #000;
+        }
+
+        /* Style for content links */
+        ol li a {
+            color: #001f3f; /* Black font for links outside the menu */
+            text-decoration: none; /* Remove underline from list links */
+            transition: color 0.3s ease; /* Smooth transition for hover */
+        }
+
+        /* Hover effect for content links */
+        ol li a:hover {
+            color: #FF6F61; /* Soft coral on hover for content list items */
+        }
+
+        /* General link hover effect for the entire page */
+        a {
+            color: inherit; /* Inherit default color from surrounding text */
+            text-decoration: none; /* No underline for general links */
+            transition: color 0.3s ease; /* Smooth transition for hover */
+        }
+
+        a:hover {
+            color: #FF6F61; /* Soft coral hover effect for all links */
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            ul.menu {
+                flex-direction: column;
+            }
+
+            ul.menu li {
+                float: none;
+                width: 100%;
+            }
+
+            ul.menu li a {
+                text-align: left;
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu Bar -->
+<ul class="menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="leetcode.html">Leetcode</a></li>
+    <li><a href="quant.html">Quant</a></li>
+</ul>
+
+<!-- Page Content -->
+<div style="padding: 20px;">
+    <h1>Probability</h1>
+    <h2>Sept. 22, 2024</h2>
+    <ol>
+    </ol>
+    <h2>Sept. 21, 2024</h2>
+    <ol>
+    </ol>
+</div>
+
+</body>
+</html>

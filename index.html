@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+    <style>
+        /* Style for the body and overall layout */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Style for the menu bar */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #001f3f; /* Navy blue */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover effect for links */
+        li a:hover {
+            background-color: #FF6F61; /* Soft coral */
+            color: #fff;
+        }
+
+        /* Secondary color for hover effect */
+        li a:focus {
+            background-color: #FF6F61;
+            color: #fff;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            ul {
+                flex-direction: column;
+            }
+
+            li {
+                float: none;
+                width: 100%;
+            }
+
+            li a {
+                text-align: left;
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu Bar -->
+<ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="leetcode.html">Leetcode</a></li>
+    <li><a href="quant.html">Quant</a></li>
+</ul>
+
+<!-- Page Content -->
+<div style="padding: 20px;">
+    <h1>Keeping myself accountable on SWE/Quant Grind.</h1>
+</div>
+
+</body>
+</html>
