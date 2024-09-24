@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC2771</title>
+    <style>
+        /* Style for the body and overall layout */
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #001f3f; /* Primary color (navy blue) for text */
+        }
+
+        /* Style for the menu bar */
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #001f3f; /* Navy blue background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.menu li {
+            float: left;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: white; /* White text for the menu bar */
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover effect for links in the menu bar */
+        ul.menu li a:hover {
+            background-color: #FF6F61; /* Soft coral background on hover */
+            color: #000; /* Black text on hover */
+        }
+
+        /* Style for page headings */
+        h1, h2, h3 {
+            color: #FF6F61; /* Secondary color (coral) for headers */
+        }
+
+        /* Code block styles */
+        code {
+            background-color: #001f3f; /* Primary color (navy blue) for code blocks */
+            color: white; /* White text inside the code blocks */
+            padding: 5px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Preformatted text (code blocks) */
+        pre {
+            background-color: #001f3f; /* Primary color (navy blue) for preformatted code blocks */
+            color: white; /* White text for code */
+            padding: 10px;
+            border-left: 3px solid #FF6F61; /* Secondary color (coral) for the border */
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap; /* To wrap long lines */
+            word-wrap: break-word; /* To prevent overflow */
+            border-radius: 5px; /* Rounded corners for a cleaner look */
+        }
+
+        /* Style for complexity analysis */
+        .complexity {
+            color: #264653; /* Darker tertiary color for complexity notes */
+        }
+
+        /* General link hover effect for clickable items */
+        a {
+            color: inherit; /* Inherit the default color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #FF6F61; /* Secondary color (soft coral) for hover effect */
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+
+            ul.menu {
+                flex-direction: column;
+            }
+
+            ul.menu li {
+                float: none;
+                width: 100%;
+            }
+
+            ul.menu li a {
+                text-align: left;
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu Bar -->
+<ul class="menu">
+    <li><a href="../home.html">Home</a></li>
+    <li><a href="../leetcode.html">Leetcode</a></li>
+    <li><a href="../quant.html">Quant</a></li>
+</ul>
+
+<h1>LC 2771</h1>
+
+<h2>Problem:</h2>
+<p>
+    You are given two 0-indexed integer arrays <code>nums1</code> and <code>nums2</code> of length n.
+</p>
+<p>
+    Let's define another 0-indexed integer array, <code>nums3</code>, of length n. For each index i in the range [0, n - 1], you can assign either <code>nums1[i]</code> or <code>nums2[i]</code> to <code>nums3[i]</code>.
+</p>
+<p>
+    Your task is to maximize the length of the longest non-decreasing subarray in <code>nums3</code> by choosing its values optimally.
+</p>
+<p>
+    Return an integer representing the length of the longest non-decreasing subarray in <code>nums3</code>.
+</p>
+
+<h3>Note:</h3>
+<p>
+    A subarray is a contiguous non-empty sequence of elements within an array.
+</p>
+
+<h2>Naive Approach:</h2>
+<p>
+    Calculate all possible combinations of substring splits and count the minimum excess across all possible splits.
+</p>
+
+<p class="complexity"><b>Time Complexity:</b> O(x<sup>n</sup>), exponential number of combinations growing by the length of the string.</p>
+<p class="complexity"><b>Space Complexity:</b> O(s), track each potential substring size capped at the length of s.</p>
+
+<h2>Improvement:</h2>
+<p>
+    This is a classic case of dynamic programming (DP), either top-down or bottom-up. In the top-down approach, we use a recursion stack across each i:j split, and the same subproblem is memoized. The bottom-up approach builds the best excess case from the slices.
+</p>
+
+<h3>Python Code for the Optimized Solution:</h3>
+
+<pre>
+    class Solution:
+        def minExtraChar(self, s, dictionary):
+            word_set = set(dictionary)
+            memo = {}
+
+            def helper(index):
+                if index == len(s):
+                    return 0
+
+                if index in memo:
+                    return memo[index]
+
+                min_extra = float('inf')
+                for j in range(index + 1, len(s) + 1):
+                    substring = s[index:j]
+
+                    if substring in word_set:
+                        min_extra = min(min_extra, helper(j))
+                    else:
+                        min_extra = min(min_extra, helper(j) + len(substring))
+
+                memo[index] = min_extra
+                return min_extra
+
+            return helper(0)
+</pre>
+
+<h3>Time Complexity:</h3>
+<p class="complexity"><b>O(n<sup>2</sup>)</b>, we iterate through each character n times and at most (n-1) iterations for the recursion stack.</p>
+
+<h3>Space Complexity:</h3>
+<p class="complexity"><b>O(n)</b>, depending on the size of the recursion stack, which is capped at (n-1).</p>
+
+</body>
+</html>

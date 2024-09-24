@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC2707</title>
+    <style>
+        /* Style for the body and overall layout */
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #001f3f; /* Primary color (navy blue) for text */
+        }
+
+        /* Style for the menu bar */
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #001f3f; /* Navy blue background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.menu li {
+            float: left;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: white; /* White text for the menu bar */
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover effect for links in the menu bar */
+        ul.menu li a:hover {
+            background-color: #FF6F61; /* Soft coral background on hover */
+            color: #000; /* Black text on hover */
+        }
+
+        /* Style for page headings */
+        h1, h2, h3 {
+            color: #FF6F61; /* Secondary color (coral) for headers */
+        }
+
+        /* Code block styles */
+        code {
+            background-color: #001f3f; /* Primary color (navy blue) for code blocks */
+            color: white; /* White text inside the code blocks */
+            padding: 5px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Preformatted text (code blocks) */
+        pre {
+            background-color: #001f3f; /* Primary color (navy blue) for preformatted code blocks */
+            color: white; /* White text for code */
+            padding: 10px;
+            border-left: 3px solid #FF6F61; /* Secondary color (coral) for the border */
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap; /* To wrap long lines */
+            word-wrap: break-word; /* To prevent overflow */
+            border-radius: 5px; /* Rounded corners for a cleaner look */
+        }
+
+        /* Style for complexity analysis */
+        .complexity {
+            color: #264653; /* Darker tertiary color for complexity notes */
+        }
+
+        /* General link hover effect for clickable items */
+        a {
+            color: inherit; /* Inherit the default color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #FF6F61; /* Secondary color (soft coral) for hover effect */
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+
+            ul.menu {
+                flex-direction: column;
+            }
+
+            ul.menu li {
+                float: none;
+                width: 100%;
+            }
+
+            ul.menu li a {
+                text-align: left;
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu Bar -->
+<ul class="menu">
+    <li><a href="../home.html">Home</a></li>
+    <li><a href="../leetcode.html">Leetcode</a></li>
+    <li><a href="../quant.html">Quant</a></li>
+</ul>
+
+<h1>LC 2707</h1>
+
+<h2>You are given a 0-indexed string s and a dictionary of words. You have to break s into one or more non-overlapping substrings such that each substring is present in the dictionary. There may be some extra characters in s that are not present in any of the substrings.</h2>
+
+<h2>Naive Approach:</h2>
+<p>
+    Calculate all possible combinations of substring splits and count the minimum excess across all possible splits.
+</p>
+
+<p class="complexity"><b>Time Complexity:</b> O(x<sup>n</sup>), exponential number of combinations growing by the length of s.</p>
+<p class="complexity"><b>Space Complexity:</b> O(s), tracking each potential substring size capped at the length of s.</p>
+
+<h2>Improvement:</h2>
+<p>
+    This is a classic case of dynamic programming (DP). Either top-down recursion across each i:j splits with memoization, or bottom-up by taking each slice and building the best excess case.
+</p>
+
+<h3>Python Code for DP Solution:</h3>
+
+<pre>
+    class Solution:
+        def minExtraChar(self, s, dictionary):
+            word_set = set(dictionary)
+            memo = {}
+
+            def helper(index):
+                if index == len(s):
+                    return 0
+
+                if index in memo:
+                    return memo[index]
+
+                min_extra = float('inf')
+                for j in range(index + 1, len(s) + 1):
+                    substring = s[index:j]
+
+                    if substring in word_set:
+                        min_extra = min(min_extra, helper(j))
+                    else:
+                        min_extra = min(min_extra, helper(j) + len(substring))
+
+                memo[index] = min_extra
+                return min_extra
+
+            return helper(0)
+</pre>
+
+<h3>Time Complexity:</h3>
+<p class="complexity"><b>O(n<sup>2</sup>)</b>, first we do n iterations through each of the characters, and then at most (n-1) iterations through the recursion stack.</p>
+
+<h3>Space Complexity:</h3>
+<p class="complexity"><b>O(n)</b>, depending on the size of the recursion stack, which is capped at (n-1).</p>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LC3043</title>
+  <style>
+    /* Style for the body and overall layout */
+    body {
+      margin: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #001f3f; /* Primary color (navy blue) for text */
+    }
+
+    /* Style for the menu bar */
+    ul.menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #001f3f; /* Navy blue background */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul.menu li {
+      float: left;
+    }
+
+    ul.menu li a {
+      display: block;
+      color: white; /* White text for the menu bar */
+      text-align: center;
+      padding: 16px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Hover effect for links in the menu bar */
+    ul.menu li a:hover {
+      background-color: #FF6F61; /* Soft coral background on hover */
+      color: #000; /* Black text on hover */
+    }
+
+    /* Style for page headings */
+    h1, h2, h3 {
+      color: #FF6F61; /* Secondary color (coral) for headers */
+    }
+
+    /* Code block styles */
+    code {
+      background-color: #001f3f; /* Primary color (navy blue) for code blocks */
+      color: white; /* White text inside the code blocks */
+      padding: 5px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Preformatted text (code blocks) */
+    pre {
+      background-color: #001f3f; /* Primary color (navy blue) for preformatted code blocks */
+      color: white; /* White text for code */
+      padding: 10px;
+      border-left: 3px solid #FF6F61; /* Secondary color (coral) for the border */
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap; /* To wrap long lines */
+      word-wrap: break-word; /* To prevent overflow */
+      border-radius: 5px; /* Rounded corners for a cleaner look */
+    }
+
+    /* Style for complexity analysis */
+    .complexity {
+      color: #264653; /* Darker tertiary color for complexity notes */
+    }
+
+    /* General link hover effect for clickable items */
+    a {
+      color: inherit; /* Inherit the default color */
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #FF6F61; /* Secondary color (soft coral) for hover effect */
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
+      }
+
+      ul.menu {
+        flex-direction: column;
+      }
+
+      ul.menu li {
+        float: none;
+        width: 100%;
+      }
+
+      ul.menu li a {
+        text-align: left;
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Menu Bar -->
+<ul class="menu">
+  <li><a href="../home.html">Home</a></li>
+  <li><a href="../leetcode.html">Leetcode</a></li>
+  <li><a href="../quant.html">Quant</a></li>
+</ul>
+
+<h1>LC3043</h1>
+
+<h2>You are given two arrays with positive integers arr1 and arr2.</h2>
+
+<p>
+  A prefix of a positive integer is an integer formed by one or more of its digits, starting from its leftmost digit.
+  For example, 123 is a prefix of the integer 12345, while 234 is not.
+</p>
+
+<p>
+  A common prefix of two integers a and b is an integer c, such that c is a prefix of both a and b.
+  For example, 5655359 and 56554 have a common prefix 565 while 1223 and 43456 do not have a common prefix.
+</p>
+
+<p>
+  You need to find the length of the longest common prefix between all pairs of integers (x, y) such that x belongs to arr1 and y belongs to arr2.
+</p>
+
+<p>
+  Return the length of the longest common prefix among all pairs. If no common prefix exists among them, return 0.
+</p>
+
+<h2>Naive Approach:</h2>
+<p>
+  Iterate through each element in arr1, and compare them against each element in arr2 and do digit-wise comparisons.
+</p>
+
+<p class="complexity"><b>Time Complexity:</b> O(n<sup>3</sup>), as we have N*M (n and m length of arr1 and arr2) and L (L length of digit-wise comparisons).</p>
+<p class="complexity"><b>Space Complexity:</b> O(1) as we need to store no additional elements.</p>
+
+<h2>Improvement:</h2>
+<p>
+  We create two sets of all the possible prefix combinations, then use set intersections to find the longest possible values.
+</p>
+
+<h3>Python Code for Longest Common Prefix:</h3>
+
+<pre>
+class Solution:
+    def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
+        prefix_set_a = set()
+        for num in arr1:
+            while num:
+                prefix_set_a.add(num)
+                num //= 10
+        prefix_set_b = set()
+        for num in arr2:
+            while num:
+                prefix_set_b.add(num)
+                num //= 10
+
+        common_prefixes = prefix_set_a.intersection(prefix_set_b)
+
+        if not common_prefixes:
+            return 0
+
+        return max(len(str(prefix)) for prefix in common_prefixes)
+</pre>
+
+<h3>Time Complexity:</h3>
+<p class="complexity"><b>O(n<sup>2</sup>)</b>, as we need to do N*L operations for each array to get all possible combinations of prefixes. The set intersection will take the min(prefix set 1*length, prefix set 2*length), but this only happens if L is approximately N and M, and generally will take O(nlogn) time.</p>
+
+<h3>Space Complexity:</h3>
+<p class="complexity"><b>O(n<sup>2</sup>)</b>, as if L is approximately N and M, then we would need approximately n<sup>2</sup> total space, but generally it will be similar to O(nlogn).</p>
+
+</body>
+</html>
